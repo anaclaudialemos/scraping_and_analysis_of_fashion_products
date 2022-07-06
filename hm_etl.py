@@ -90,16 +90,15 @@ def get_product_details(data, headers):
 
         for j in range(count, len(df_colors)):
 
-            logger.debug('color count: %s', count)
+            count = count + 1
 
             # request
             url  = 'https://www2.hm.com/en_us/productpage.' + df_colors.loc[j, 'product_id'] + '.html'
             logger.debug('color: %s', url)
+            logger.debug('count: %s', count)
             
             page = requests.get(url, headers=headers)
             soup = BeautifulSoup(page.text, 'html.parser')
-    
-            count = count + 1
 
             # product details 
             product_atributes_list = soup.find_all('div', class_='details-attributes-list-item')
@@ -315,9 +314,9 @@ def drop_duplicates_products_in_db():
         scrapy_datetime      TEXT
         )
     """
-    #conn   = sqlite3.connect('database_hm.db')
-    #cursor = conn.execute(query_dup_products_schema)
-    #conn.commit()
+    conn   = sqlite3.connect('database_hm.db')
+    cursor = conn.execute(query_dup_products_schema)
+    conn.commit()
 
     # insert into dup_hm_products
     query_insert_into_dup_hm_products = """
@@ -371,7 +370,7 @@ if __name__ == "__main__":
         os.makedirs(path + 'logs')
 
     logging.basicConfig( 
-        filename=path + 'logs/hm_etl2.log',
+        filename=path + 'logs/hm_etl.log',
         level=logging.DEBUG,
         format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
@@ -391,11 +390,11 @@ if __name__ == "__main__":
     logger.info('data by product done')
     
     # Data cleaning
-    data_products_cleaned = data_cleaning(pd.read_csv('df_products_raw5.csv'))
+    data_products_cleaned = data_cleaning(data_products )
     logger.info('data cleaning done')
 
     # Data insertion
-    data_insertion(pd.read_csv('data_cleaned.csv'))
+    data_insertion(data_products_cleaned)
     logger.info('data insertion done')
 
     # Drop duplicates on DB
