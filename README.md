@@ -72,7 +72,10 @@ Pareto diagram was used to define which are the most significant styles and colo
 Of the 24 styles present in the dataset, 8 represent 80% of the products in the dataset: straightleg, tapered mom, straightleg widecut, skinny, slim, jeggings, mom straightleg, and widecut. In terms of length and waist, the ankle and long lengths represent practically 100% of the products, and 82.37% have either a high or ultra high waist. About the fit, 80% of the products have fit loose, regular, or slim. I recommend starting with products following the styles, fit, length and waist described here, and as you gain market share expand to others.
 
 <p align="center"> <img width="700" src="images/pareto_style.png"/> </p>
-<p> <img src="images/fit.png" width="332"/> <img src="images/length.png" width="332"/> <img width="332"src="images/waist.png"/> </p>
+
+<p align="center"> <img width="400" src="images/length.png"/> <img width="400" src="images/waist.png"/> </p>
+
+<p align="center"> <img width="500" src="images/fit.png"/> </p>
 
 Of the 46 colors available 7 represent 80% of the products in the dataset: light denim blue, denim blue, black, dark denim blue, white, and pale denim blue. I recommend starting with these colors for the products, and as you gain market share expand the colors.
 
