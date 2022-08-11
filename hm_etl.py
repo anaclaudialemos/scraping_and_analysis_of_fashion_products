@@ -284,9 +284,7 @@ def data_insertion(data):
     # data insertion
     data.to_sql('hm_products', con=conn, if_exists='append', index=False)
 
-    return None
-
-def drop_duplicates_products_in_db():
+    ## clear duplicates
 
     # create table 
     query_dup_products_schema = """
@@ -397,8 +395,4 @@ if __name__ == "__main__":
     # Data insertion
     data_insertion(data_products_cleaned)
     logger.info('data insertion done')
-
-    # Drop duplicates on DB
-    drop_duplicates_products_in_db()
-    logger.info('drop duplicates products in db done')
 
