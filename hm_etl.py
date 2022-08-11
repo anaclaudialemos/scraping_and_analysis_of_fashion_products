@@ -1,5 +1,6 @@
 ## 0.0. Imports
 
+from email import header
 import re
 import os
 import sqlite3
@@ -16,9 +17,9 @@ from sqlalchemy import create_engine
 
 ## 1.0. Scrape Data - Showroom Products
 
-def get_showroom_data( url, headers ):
+def get_showroom_data(url, headers):
 
-    page = requests.get( url, headers=headers )
+    page = requests.get( url, headers=headers)
     soup = BeautifulSoup( page.text, 'html.parser' )
 
     # total of pages to iterate
@@ -181,7 +182,7 @@ def data_cleaning(data):
     data['price'] = data['price'].apply(lambda x: x.replace('$', ''))
 
     # name
-    data['name'] = data['name'].apply(lambda x: x.replace(' ', '_').lower())
+    data['name'] = data['name'].apply(lambda x: x.replace(' ', '_').replace("'", "").lower())
 
     # color_name
     data['color_name'] = data['color_name'].apply(lambda x: x.replace(' ', '_').replace('-', '_'). replace('/', '_').replace('®', '').lower())
@@ -196,7 +197,7 @@ def data_cleaning(data):
     data['waist'] = data['waist'].apply(lambda x: x.replace('waist', '').replace('-', '').lower() if pd.notnull(x) else x)
 
     # fit 
-    data['fit'] = data['fit'].apply(lambda x: x.replace('fit', '').replace('-', '').lower() if pd.notnull(x) else x)
+    data['fit'] = data['fit'].apply(lambda x: x.replace('fit', '').replace('-', '').replace('-', '').replace(' ', '').lower() if pd.notnull(x) else x)
 
     # environmental_marker
     data['environmental_marker'] = data['environmental_marker'].apply(lambda x: 0 if x != 1 else x).astype(np.int64)
@@ -273,9 +274,9 @@ def data_insertion(data):
         scrapy_datetime      TEXT
         )
     """
-    conn   = sqlite3.connect('database_hm.db')
-    cursor = conn.execute(query_products_schema)
-    conn.commit()
+    #conn   = sqlite3.connect('database_hm.db')
+    #cursor = conn.execute(query_products_schema)
+    #conn.commit()
 
     # create database connection
     conn = create_engine('sqlite:///database_hm.db', echo=False)
@@ -383,14 +384,14 @@ if __name__ == "__main__":
 
     # Data collection showroom
     data_collection = get_showroom_data(url, headers)
-    logger.info('data collection done')
+    logger.info('data collection showroom done')
 
     # Data collection by product
     data_products = get_product_details(data_collection, headers)
     logger.info('data by product done')
-    
+
     # Data cleaning
-    data_products_cleaned = data_cleaning(data_products )
+    data_products_cleaned = data_cleaning(data_products)
     logger.info('data cleaning done')
 
     # Data insertion
