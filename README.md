@@ -11,7 +11,7 @@ Mariana and Laura are friends and business partners. After several successful bu
 
 The initial idea is to enter the market with only one product and for a specific public, i,n this case the product would be jeans for the female public. The goal is to keep the cost of operation low and scale up as they get customers. However, even with the entrance product and the audience defined, the partners have no experience in this fashion market and therefore do not know how to define basic things like price, the type of jeans, and the main materials to manufacture each piece.
 
-So the partners hired a Data Science consultancy to answer the following questions: 
+So the partners hired a data science consultancy to answer the following questions: 
 1. What would be the medium sales ticket of the products? 
 2. What are the types of jeans and their colors for the initial products? 
 3. What are the product's compositions?
